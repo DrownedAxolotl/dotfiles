@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+source trashy.sh
+MOD=Mod4
+# Set panel
+herbstclient set frame_gap 4
+herbstclient set window_gap 6
+herbstclient set frame_border_width 0.5
+herbstclient set window_border_width 2
+herbstclient set frame_border_active_color '#090909'
+herbstclient set window_border_normal_color '#222222'
+herbstclient set window_border_active_color '#0db2cb'
+
+# Set the number of workspaces
+herbstclient rename default '1' 2>/dev/null || true
+herbstclient add '2'
+herbstclient add '3'
+herbstclient add '4'
+herbstclient add '5'
+herbstclient add '6'
+
+# Keybindings (Mod=Mod4=Super/Win key)
+herbstclient keybind $MOD-Shift-q quit
+herbstclient keybind $MOD-q close
+herbstclient keybind $MOD-Return spawn alacritty
+herbstclient keybind $MOD-d spawn rofi -theme ~/.config/rofi-themes/rounded-nord-dark.rasi -show-icons -show drun
+herbstclient keybind $MOD-Shift-d spawn appimage-run /home/filip/Apps/PrismLauncher.AppImage
+herbstclient keybind $MOD-w spawn zen
+herbstclient keybind $MOD-r reload
+
+# Focus movement
+herbstclient keybind $MOD-Left  focus left
+herbstclient keybind $MOD-Down  focus down
+herbstclient keybind $MOD-Up    focus up
+herbstclient keybind $MOD-Right focus right
+
+# Window movement
+herbstclient keybind $MOD-Shift-Left  shift left
+herbstclient keybind $MOD-Shift-Down  shift down
+herbstclient keybind $MOD-Shift-Up    shift up
+herbstclient keybind $MOD-Shift-Right shift right
+
+# Layout management
+#herbstclient keybind $MOD-u split bottom 0.5
+#herbstclient keybind $MOD-o split right 0.5
+herbstclient keybind $MOD-a cycle_layout 1
+herbstclient keybind $MOD-s fullscreen toggle
+
+# Workspace switching
+herbstclient keybind $MOD-1 use_index 0
+herbstclient keybind $MOD-2 use_index 1
+herbstclient keybind $MOD-3 use_index 2
+herbstclient keybind $MOD-4 use_index 3
+herbstclient keybind $MOD-5 use_index 4
+herbstclient keybind $MOD-6 use_index 5
+
+# Move window to workspace
+herbstclient keybind $MOD-Shift-1 move_index 0
+herbstclient keybind $MOD-Shift-2 move_index 1
+herbstclient keybind $MOD-Shift-3 move_index 2
+herbstclient keybind $MOD-Shift-4 move_index 3
+herbstclient keybind $MOD-Shift-5 move_index 4
+herbstclient keybind $MOD-Shift-5 move_index 5
+
+
+# Wallpapers and such
+feh --bg-scale /home/filip/Pictures/Wallpapers/Snow\ House.png
+
+

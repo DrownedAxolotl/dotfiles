@@ -1,0 +1,128 @@
+/**
+ * Rofi Blue Theme - Compact
+ * Designed for dark blue backgrounds
+ */
+
+configuration {
+    modi:                       "drun,run,window";
+    show-icons:                 true;
+    icon-theme:                "Papirus";
+    display-drun:               "";
+    drun-display-format:        "{name}";
+    window-format:              "{w} · {c} · {t}";
+}
+
+* {
+    /* Base Colors */
+    bg:     #0a0e17;    /* Very dark blue */
+    bg-alt: #141a2d;    /* Slightly lighter dark blue */
+    fg:     #e0e9ff;    /* Light blue-white text */
+    
+    /* Accent Colors */
+    accent: #4a7dff;    /* Bright blue */
+    hover:  #6a9dff;    /* Lighter bright blue */
+    urgent: #ff5555;    /* Red for urgent items */
+    active: #3a5dcc;    /* Darker blue for active elements */
+    
+    /* Element Colors */
+    background-color:   transparent;
+    border-color:       @accent;
+    separatorcolor:     @bg-alt;
+    
+    /* Text Styles */
+    text-color:        @fg;
+    font:              "Fira Code 12";
+}
+
+window {
+    transparency:        "real";
+    location:            center;
+    anchor:             center;
+    fullscreen:          false;
+    width:               600px;  /* Reduced from 600px */
+    height:               510px;  /* Reduced from 600px */
+    x-offset:            0;
+    y-offset:            0;
+    
+    background-color:    @bg;
+    border:              2px;
+    border-radius:       8px;
+    border-color:       @border-color;
+}
+
+mainbox {
+    spacing:            0;
+    padding:            5px;  /* Reduced from 15px */
+    children:           [ "inputbar", "listview" ];
+}
+
+inputbar {
+    spacing:            8px;   /* Reduced from 10px */
+    padding:            10px;  /* Reduced from 12px */
+    children:           [ "textbox-prompt-colon", "entry" ];
+    
+    background-color:   @bg-alt;
+    border-radius:      4px;
+}
+
+textbox-prompt-colon {
+    text-color:         @accent;
+    expand:             false;
+    str:                "";
+    font:               "Fira Code Nerd Font 14";
+}
+
+entry {
+    text-color:         @fg;
+    placeholder:        "Search...";
+    placeholder-color:  @accent;
+}
+
+listview {
+    spacing:            6px;   /* Reduced from 8px */
+    padding:            6px 0; /* Reduced from 8px 0 */
+    dynamic:            true;
+    scrollbar:          true;
+}
+
+element {
+    padding:            6px 10px; /* Reduced from 8px 12px */
+    text-color:         @fg;
+    
+    background-color:   @bg;
+    border-radius:      4px;
+}
+
+element selected {
+    text-color:         @fg;
+    
+    background-color:   @bg-alt;
+    border:             1px;
+    border-color:       @accent;
+}
+
+element-text {
+    text-color:         inherit;
+}
+
+element-icon {
+    size:               1.2em;
+}
+
+scrollbar {
+    handle-color:       @accent;
+    handle-width:       6px;
+    handle-radius:      3px;
+    
+    background-color:   @bg-alt;
+}
+
+message {
+    padding:            10px;  /* Reduced from 12px */
+    background-color:   @bg-alt;
+    border-radius:      4px;
+}
+
+textbox {
+    text-color:         @fg;
+}
