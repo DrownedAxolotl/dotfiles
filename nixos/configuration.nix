@@ -20,7 +20,7 @@
 
 
   # Hostname
-  networking.hostName = "milenko";
+  networking.hostName = "leni";
   
   # NetworkManager for WiFi
   networking.networkmanager.enable = true;
@@ -37,11 +37,33 @@
     wheelNeedsPassword = true;
   };
 
- hardware.opengl = {
-  enable = true;
-  driSupport32Bit = true;
 
- };
+  hardware = {
+
+   opengl = {
+     enable = true;
+     driSupport32Bit = true;
+
+     };
+    # Nvidia configuration (PRIME offloading)
+    nvidia = {
+      modesetting.enable = true;  # Required for tear-free
+      powerManagement.enable = true;
+      nvidiaSettings = true;
+
+      prime = {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+        intelBusId = "PCI:0:2:0";  # Replace with your bus ID
+        nvidiaBusId = "PCI:1:0:0";  # Replace with your bus ID
+      };
+
+      # Force Full Composition Pipeline (eliminates tearing)
+      forceFullCompositionPipeline = true;
+    };
+    };
 
   environment.systemPackages = with pkgs; [
     vim
@@ -49,26 +71,13 @@
     ventoy
     btop
     git
-    appimage-run
-    bspwm
     sxhkd
     xorg.xinit
  ];
 
 
-/*
-  let
-  rt8821au = pkgs.callPackage ./rtl8821au.nix { 
-    linuxKernel = config.boot.kernelPackages;
-  };
-*/
+ time.timeZone = "Europe/Berlin";
 
-/*
-  # Internet dongle setup
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    rtl8821au
-  ];
-*/
   nixpkgs.config.allowUnfree = true;
   # User configuration
   users.users.filip = {
@@ -81,15 +90,14 @@
       alacritty
       dwarf-fortress
       feh
+      lf
       cmatrix
       onlyoffice-desktopeditors
-      openmw
-      wine
-      discord
-      # Applications
-      (pkgs.callPackage ./prismlauncher-wrapper.nix {})
-      (pkgs.callPackage ./zen.nix {})
-      
+      brave
+      signal-desktop
+      flameshot
+      shortwave
+      xfce.thunar
     ];
   };
 
@@ -104,27 +112,30 @@
     jack.enable = true;
   };
 
+
   # Display manager (SDDM)
   services.xserver = {
     enable = true;
-    deviceSection = ''Option "TearFree" "true"''; # For amdgpu :cite[1]
-    videoDrivers = [ "amdgpu" ];
+    dpi = 130;
+    deviceSection = ''
+      Option "DRI" "3"
+      Option "TearFree" "true" 
+    '';
+    videoDrivers = [ "nvidia" ];
     displayManager.sddm = {
       enable = true;
     };
     desktopManager = {
       xterm.enable = false;
     };
-    desktopManager.plasma6 = {
-     enable = true;
-    };
     windowManager.herbstluftwm.enable = true;
   };
 
   # Use the regular kernel
   #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_5_15; # Use the correct kernel version
-  boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8821au ];
+  boot.kernelPackages = pkgs.linuxPackages_latest; # Use the correct kernel version
+  boot.kernelModules = [ "i915" "nvidia" ]; # Use the correct kernel version
+  boot.extraModulePackages = with config.boot.kernelPackages; [ nvidia_x11 ];
   # DO NOT CHANGE STATE VERSION
   system.stateVersion = "24.11";
 }
