@@ -2,6 +2,7 @@
 
 source trashy.sh
 MOD=Mod4
+herbstclient rule hook=window_created focus=on
 # Set panel
 herbstclient set frame_gap 4
 herbstclient set window_gap 6
@@ -20,13 +21,24 @@ herbstclient add '5'
 herbstclient add '6'
 
 # Keybindings (Mod=Mod4=Super/Win key)
-herbstclient keybind $MOD-Shift-q quit
+#herbstclient keybind $MOD-Shift-q quit
 herbstclient keybind $MOD-q close
+herbstclient keybind $MOD-Shift-q spawn kill -9 "$(herbstclient attr clients.focus.pid)"
 herbstclient keybind $MOD-Return spawn alacritty
 herbstclient keybind $MOD-d spawn rofi -theme ~/.config/rofi-themes/rounded-nord-dark.rasi -show-icons -show drun
 herbstclient keybind $MOD-Shift-d spawn appimage-run /home/filip/Apps/PrismLauncher.AppImage
+herbstclient keybind $MOD-grave spawn sh /home/filip/.config/scripts/keyboard-switcher.sh
+herbstclient keybind $MOD-x spawn sh /home/filip/.config/scripts/power-menu.sh
 herbstclient keybind $MOD-w spawn zen
+herbstclient keybind $MOD-e spawn alacritty -e lf
+herbstclient keybind $MOD-z spawn flameshot gui &
 herbstclient keybind $MOD-r reload
+
+
+# Floating windows
+herbstclient keybind $MOD-f set_attr clients.focus.floating toggle
+herbstclient mousebind Button2 move
+
 
 # Focus movement
 herbstclient keybind $MOD-Left  focus left
@@ -61,6 +73,7 @@ herbstclient keybind $MOD-Shift-3 move_index 2
 herbstclient keybind $MOD-Shift-4 move_index 3
 herbstclient keybind $MOD-Shift-5 move_index 4
 herbstclient keybind $MOD-Shift-5 move_index 5
+
 
 
 # Wallpapers and such
