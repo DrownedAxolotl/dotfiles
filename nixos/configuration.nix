@@ -31,6 +31,9 @@
   # Disable SSH by default
   services.openssh.enable = false;
 
+  # Bluetooth support setup
+  hardware.bluetooth.enable = true;
+
   # Sudo configuration
   security.sudo = {
     enable = true;
@@ -68,7 +71,6 @@
   environment.systemPackages = with pkgs; [
     vim
     neofetch
-    ventoy
     btop
     git
     sxhkd
@@ -91,6 +93,7 @@
       dwarf-fortress
       feh
       lf
+      bluetuith
       cmatrix
       onlyoffice-desktopeditors
       brave
@@ -134,8 +137,8 @@
   # Use the regular kernel
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxPackages_latest; # Use the correct kernel version
-  boot.kernelModules = [ "i915" "nvidia" ]; # Use the correct kernel version
+  boot.kernelModules = [ "i915" "nvidia" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ nvidia_x11 ];
   # DO NOT CHANGE STATE VERSION
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 }

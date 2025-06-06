@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-source trashy.sh
 MOD=Mod4
 herbstclient rule hook=window_created focus=on
 # Set panel
